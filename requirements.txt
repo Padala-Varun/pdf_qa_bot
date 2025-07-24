@@ -1,7 +1,9 @@
 streamlit
-langchain
-langchain-google-genai
-PyMuPDF
+langchain>=0.1.14
+langchain-google-genai>=0.0.8
+google-generativeai
+PyPDF2
 python-docx
 faiss-cpu
-python-dotenv
+tiktoken
+nest_asyncio
