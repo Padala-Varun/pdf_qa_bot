@@ -1,55 +1,59 @@
-# PDF QA Bot
+📄 DocuChat AI
+Ask questions about your documents using AI. With memory. With style.
 
-## Overview
-PDF QA Bot is a Flask-based application designed to parse and retrieve information from PDF, DOCX, and TXT documents using a Retrieval-Augmented Generation (RAG) pipeline. The application allows users to upload documents and query them for specific information.
+🧠 What is DocuChat AI?
+DocuChat AI is a powerful RAG-based (Retrieval-Augmented Generation) Streamlit application that lets you:
 
-## Project Structure
-```
-pdf_qa_bot/
-├── app.py              # Main entry point for the application
-├── loader.py           # Functions for parsing PDF, DOCX, and TXT files
-├── rag_pipeline.py     # Implements the RAG pipeline for document retrieval
-├── .env                # Environment variables (e.g., GOOGLE_API_KEY)
-├── requirements.txt    # Python dependencies
-└── README.md           # Project documentation
-```
+🗂️ Upload PDF, DOCX, or TXT files
 
-## Setup Instructions
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/pdf_qa_bot.git
-   cd pdf_qa_bot
-   ```
+❓ Ask questions about their content
 
-2. Create a virtual environment:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
+💬 Maintain conversational memory (context-aware answers)
 
-3. Install the required packages:
-   ```
-   pip install -r requirements.txt
-   ```
+🧠 Powered by Gemini 1.5 Pro via LangChain
 
-4. Set up your environment variables:
-   - Create a `.env` file in the root directory and add your `GOOGLE_API_KEY`:
-     ```
-     GOOGLE_API_KEY=your_api_key_here
-     ```
+💾 Runs locally, fully interactive, deployable on Streamlit Cloud
 
-## Usage
-1. Run the application:
-   ```
-   python app.py
-   ```
+🚀 Features
+Feature Description
+📄 Multi-format upload PDF, DOCX, TXT support
+🔍 RAG pipeline Vector search + LLM response
+💭 Contextual memory Remembers previous 5 conversation turns
+✨ Gemini 1.5 Pro integration Google GenAI for chat + embeddings
+⚡ Fast and accurate Optimized with FAISS and chunked retrieval
+🧼 Clear memory button Reset conversation without re-uploading
+🧠 Source-aware answers View retrieved document snippets
+🎨 Beautiful UI Fully styled with advanced custom CSS
 
-2. Access the application in your web browser at `http://127.0.0.1:5000`.
+🧪 Tech Stack
+LangChain (ConversationalRetrievalChain, FAISS)
 
-3. Upload your documents and start querying for information.
+Google Gemini 1.5 Pro (via langchain_google_genai)
 
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+FAISS for vector storage
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+Streamlit UI
+
+Python (3.10+ recommended)
+
+🛠️ Installation & Setup
+
+1. Clone the repository
+
+git clone
+cd docuchat-ai
+
+2. Install dependencies
+
+pip install -r requirements.txt
+
+3. Set up your environment
+   Create a .env file in the root with your Google Generative AI API Key:
+
+GOOGLE_API_KEY=your_google_generative_ai_key_here
+
+Get one here: https://makersuite.google.com/app/apikey
+
+4. Run the app
+
+streamlit run app.py
