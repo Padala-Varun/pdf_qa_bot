@@ -380,10 +380,3 @@ with col2:
     elif question:
         st.warning("⚠️ Please upload a document first to ask questions!")
 
-# Footer
-st.markdown("---")
-st.markdown("""
-<div style="text-align: center; padding: 2rem; color: #B39DDB;">
-    <p style="opacity: 0.9;">Built with ❤️ using Streamlit & AI | Upload • Ask • Remember • Discover</p>
-</div>
-""", unsafe_allow_html=True)
