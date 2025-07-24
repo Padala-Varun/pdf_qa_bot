@@ -4,7 +4,8 @@ import nest_asyncio
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA
+from langchain.chains import ConversationalRetrievalChain
+from langchain.memory import ConversationBufferWindowMemory
 from langchain_google_genai import (
     GoogleGenerativeAIEmbeddings,
     ChatGoogleGenerativeAI
@@ -43,11 +44,55 @@ def create_vectorstore(text: str):
     docs = splitter.create_documents([text])
     return FAISS.from_documents(docs, embeddings)
 
-# ✅ Create RAG RetrievalQA Chain
-def get_qa_chain(vectorstore):
-    retriever = vectorstore.as_retriever()
-    return RetrievalQA.from_chain_type(
+# ✅ Create RAG ConversationalRetrievalChain with Memory
+def get_qa_chain_with_memory(vectorstore):
+    # Create memory that remembers last 5 conversation turns
+    memory = ConversationBufferWindowMemory(
+        k=5,  # Remember last 5 exchanges
+        memory_key="chat_history",
+        return_messages=True,
+        output_key="answer"
+    )
+    
+    retriever = vectorstore.as_retriever(
+        search_kwargs={"k": 4}  # Retrieve top 4 relevant chunks
+    )
+    
+    # Use ConversationalRetrievalChain for memory support
+    chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=retriever,
-        return_source_documents=True
+        memory=memory,
+        return_source_documents=True,
+        verbose=False,
+        chain_type="stuff"
     )
+    
+    return chain
+
+# ✅ Legacy function for backward compatibility
+def get_qa_chain(vectorstore):
+    """Legacy function - redirects to memory-enabled version"""
+    return get_qa_chain_with_memory(vectorstore)
+
+# ✅ Clear conversation memory
+def clear_memory(qa_chain):
+    """Clear the conversation memory"""
+    if hasattr(qa_chain, 'memory'):
+        qa_chain.memory.clear()
+        return True
+    return False
+
+# ✅ Get conversation history
+def get_conversation_history(qa_chain):
+    """Get the current conversation history"""
+    if hasattr(qa_chain, 'memory') and hasattr(qa_chain.memory, 'chat_memory'):
+        messages = qa_chain.memory.chat_memory.messages
+        history = []
+        for i in range(0, len(messages), 2):
+            if i + 1 < len(messages):
+                human_msg = messages[i].content
+                ai_msg = messages[i + 1].content
+                history.append({"question": human_msg, "answer": ai_msg})
+        return history
+    return []
