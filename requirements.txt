@@ -1,10 +1,10 @@
 streamlit
 langchain>=0.1.14
 langchain-google-genai>=0.0.8
+langchain-community
 google-generativeai
 PyPDF2
 python-docx
 faiss-cpu
 tiktoken
 nest_asyncio
-langchain-community
