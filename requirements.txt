@@ -9,3 +9,4 @@ faiss-cpu
 tiktoken
 nest_asyncio
 python-dotenv
+PyMuPDF
