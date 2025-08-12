@@ -20,7 +20,7 @@ api_key = os.getenv("GOOGLE_API_KEY")
 
 # ✅ Initialize Gemini 1.5 Pro for Chat (LLM)
 llm = ChatGoogleGenerativeAI(
-    model="models/gemini-1.5-pro",
+    model="models/gemini-2.5-flash",
     google_api_key=api_key,
     temperature=0.3,
     convert_system_message_to_human=True
